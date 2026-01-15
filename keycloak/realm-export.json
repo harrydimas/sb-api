@@ -1,0 +1,21 @@
+{
+  "realm": "sb-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "sb-api",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "secret": "sb-secret",
+      "directAccessGrantsEnabled": true,
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true
+    }
+  ],
+  "roles": {
+    "realm": [
+      { "name": "ADMIN" },
+      { "name": "USER" }
+    ]
+  }
+}
