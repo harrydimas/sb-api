@@ -81,4 +81,58 @@ public class KeycloakService {
 
     return location.substring(location.lastIndexOf('/') + 1);
   }
+
+  public TokenResponse login(String email, String password) {
+    String tokenUrl =
+      props.getUrl() +
+      "/realms/" +
+      props.getRealm() +
+      "/protocol/openid-connect/token";
+
+    TokenResponse response = restClient
+      .post()
+      .uri(tokenUrl)
+      .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+      .body(
+        "grant_type=password" +
+        "&client_id=" +
+        props.getClient().getId() +
+        "&client_secret=" +
+        props.getClient().getSecret() +
+        "&username=" +
+        email +
+        "&password=" +
+        password
+      )
+      .retrieve()
+      .body(TokenResponse.class);
+
+    return response;
+  }
+
+  public TokenResponse refreshToken(String refreshToken) {
+    String tokenUrl =
+      props.getUrl() +
+      "/realms/" +
+      props.getRealm() +
+      "/protocol/openid-connect/token";
+
+    TokenResponse response = restClient
+      .post()
+      .uri(tokenUrl)
+      .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+      .body(
+        "grant_type=refresh_token" +
+        "&client_id=" +
+        props.getClient().getId() +
+        "&client_secret=" +
+        props.getClient().getSecret() +
+        "&refresh_token=" +
+        refreshToken
+      )
+      .retrieve()
+      .body(TokenResponse.class);
+
+    return response;
+  }
 }

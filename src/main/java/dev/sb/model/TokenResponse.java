@@ -12,4 +12,13 @@ public class TokenResponse {
 
   @JsonProperty("expires_in")
   private int expiresIn;
+
+  @JsonProperty("refresh_expires_in")
+  private int refreshExpiresIn;
+
+  @JsonProperty("refresh_token")
+  private String refreshToken;
+
+  @JsonProperty("token_type")
+  private String tokenType;
 }

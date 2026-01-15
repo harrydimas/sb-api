@@ -1,6 +1,7 @@
 /* (C)2026 */
 package dev.sb.rest;
 
+import dev.sb.model.TokenResponse;
 import dev.sb.service.KeycloakService;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,20 @@ public class AuthResource {
           "User registered successfully"
         )
       );
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<TokenResponse> login(
+    @RequestParam String email,
+    @RequestParam String password
+  ) {
+    return ResponseEntity.ok(service.login(email, password));
+  }
+
+  @PostMapping("/refresh-token")
+  public ResponseEntity<TokenResponse> refreshToken(
+    @RequestParam String refreshToken
+  ) {
+    return ResponseEntity.ok(service.refreshToken(refreshToken));
   }
 }
