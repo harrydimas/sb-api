@@ -2,6 +2,7 @@ package dev.sb.service;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.ElasticsearchException;
+import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -9,20 +10,18 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ElasticService {
 
   private final ElasticsearchClient esClient;
   private final OllamaService ollamaService;
 
-  public ElasticService(
-    final ElasticsearchClient esClient,
-    final OllamaService ollamaService
-  ) {
-    this.esClient = esClient;
-    this.ollamaService = ollamaService;
+  @PostConstruct
+  public void init() {
     try {
       System.out.println("esClient: " + this.esClient.ping().value());
       // this.ingest();
@@ -83,7 +82,10 @@ public class ElasticService {
       .hits()
       .hits()
       .forEach(hit -> {
-        System.out.println("Content: " + hit.source().get("content"));
+        var source = hit.source();
+        if (source == null) return;
+        System.out.println("Metadata: " + source.get("metadata"));
+        System.out.println("Content: " + source.get("content"));
       });
   }
 }

@@ -51,3 +51,7 @@ keycloak:
 elasticsearch:
   host: http://localhost:9200
   api-key: MlBHOVdwa0I0MWgwMDlYMHFXZ1Y6RUJXQ3BIMGlLQ2RxdUwwbTFaUlZBUQ==
+
+ollama:
+  host: http://localhost:11434
+  model: llama3.1
