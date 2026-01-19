@@ -17,6 +17,12 @@ spring:
             non_contextual_creation: true
         id:
           new_generator_mappings: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/sb-realm
+          
 error:
   handling:
     http-status-in-json-response: true

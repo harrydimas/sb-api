@@ -11,6 +11,8 @@ import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +46,15 @@ public class SwaggerConfig {
               .addProperty("rejectedValue", new ObjectSchema())
               .addProperty("path", new StringSchema())
           )
-      );
+          .addSecuritySchemes(
+            "bearerAuth",
+            new SecurityScheme()
+              .type(SecurityScheme.Type.HTTP)
+              .scheme("bearer")
+              .bearerFormat("JWT")
+          )
+      )
+      .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
   }
 
   @Bean

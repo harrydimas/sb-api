@@ -32,6 +32,14 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
@@ -75,13 +83,11 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <version>${spotless.version}</version>
         <configuration>
-          <!-- optional: limit format enforcement to just the files changed by this feature branch -->
-          <!-- <ratchetFrom>origin/main</ratchetFrom> -->
+          <ratchetFrom>origin/main</ratchetFrom>
           <pom>
             <sortPom/>
           </pom>
           <formats>
-            <!-- prettier with java-plugin -->
             <format>
               <includes>
                 <include>src/*/java/**/*.java</include>
@@ -96,7 +102,6 @@
                   <tabWidth>2</tabWidth>
                   <parser>java</parser>
                   <plugins>prettier-plugin-java</plugins>
-                  <!-- this is only for prettier 3.0.0 and above: an additional 'plugins' config element is required -->
                 </config>
               </prettier>
             </format>
